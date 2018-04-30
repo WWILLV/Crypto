@@ -19,8 +19,8 @@ namespace test
                 Console.WriteLine("9、morse加密 10、morse解密 11、16位md5 12、128位AES(CBC)加密 13、128位AES(CBC)解密");
                 Console.WriteLine("14、128位AES(ECB)加密 15、128位AES(ECB)解密 16、培根加密 17、培根解密");
                 Console.WriteLine("18、栅栏加密 19、栅栏解密 20、维吉尼亚加密 21、维吉尼亚解密 22、任意进制转换");
-                Console.WriteLine("23、URL编码 24 URL解码 25、字符串转Unicode 26、字符串转为UniCode码字符串 27、Unicode字符串转为正常字符串");
-                Console.WriteLine("28、字符串转ASCII（byte[]） 29、ASCII(byte[])转字符串");
+                Console.WriteLine("23、URL编码 24 URL解码 25、字符串转为UniCode码字符串");
+                Console.WriteLine("26、Unicode字符串转为正常字符串 27、字符串转ASCII（byte[]） 28、ASCII(byte[])转字符串");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 Console.Write("请输入要加解密的字符串：");
                 string str = Console.ReadLine();
@@ -126,7 +126,7 @@ namespace test
                         Console.WriteLine("进制转换结果为：" + Conversion.convert(str,convertin,convertout));
                         break;
                     #endregion
-                    #region 23-
+                    #region 23-28
                     case 23:
                         Console.WriteLine("URL编码结果为："+Code.UrlEncode(str));
                         break;
@@ -134,22 +134,19 @@ namespace test
                         Console.WriteLine("URL解码结果为：" + Code.UrlDecode(str));
                         break;
                     case 25:
-                        Console.WriteLine("字符串转Unicode结果为：" + Code.String2Unicode(str));
-                        break;
-                    case 26:
                         Console.WriteLine("字符串转为UniCode码字符串结果为：" + Code.StringToUnicode(str));
                         break;
-                    case 27:
+                    case 26:
                         Console.WriteLine("Unicode字符串转为正常字符串结果为：" + Code.UnicodeToString(str));
                         break;
-                    case 28:
+                    case 27:
                         Console.WriteLine("字符串转ASCII结果为：");
                         foreach (var item in Code.StringToASCII(str))
                         {
                             Console.Write(item.ToString()+',');
                         }
                         break;
-                    case 29:
+                    case 28:
                         Console.WriteLine("ASCII转字符串结果为：(这个输入不了)");
                         break;
                     #endregion

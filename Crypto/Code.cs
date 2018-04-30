@@ -327,23 +327,7 @@ namespace Crypto
         #endregion
 
         #region ASCII String Unicode
-
-        /// <summary>
-        /// 字符串转Unicode
-        /// </summary>
-        /// <param name="source">源字符串</param>
-        /// <returns>Unicode编码后的字符串</returns>
-        public static string String2Unicode(string source)
-        {
-            var bytes = Encoding.Unicode.GetBytes(source);
-            var stringBuilder = new StringBuilder();
-            for (var i = 0; i < bytes.Length; i += 2)
-            {
-                stringBuilder.AppendFormat("\\u{0:x2}{1:x2}", bytes[i + 1], bytes[i]);
-            }
-            return stringBuilder.ToString();
-        }
-
+        
         /// <summary>  
         /// 字符串转为UniCode码字符串  
         /// </summary>  
