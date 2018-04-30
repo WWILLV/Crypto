@@ -33,5 +33,5 @@
 [作者主页](https://willv.cn)
 [关于该项目](https://willv.cn/projects/Crypto)
 
-## Liences
+## LICENSE
 Apache
