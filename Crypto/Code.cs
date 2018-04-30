@@ -333,9 +333,9 @@ namespace Crypto
         /// </summary>  
         /// <param name="s"></param>  
         /// <returns></returns>  
-        public static string StringToUnicode(string s)
+        public static string StringToUnicode(string str)
         {
-            char[] charbuffers = s.ToCharArray();
+            char[] charbuffers = str.ToCharArray();
             byte[] buffer;
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < charbuffers.Length; i++)
@@ -374,7 +374,7 @@ namespace Crypto
         /// </summary>
         /// <param name="str">字符串</param>
         /// <returns>ASCII</returns>
-        public static byte[] StringToASCII(String str)
+        public static byte[] StringToASCII(string str)
         {
             return Encoding.Default.GetBytes(str);
         }
