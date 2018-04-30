@@ -3,7 +3,7 @@ Encapsulate multiple CTFs and common encryption and encoding C# libraries
 
 In my blog, I've written about the introduction and analysis of various types of encryption and functions in the class library.[标签: Crypto | 时光](https://willv.cn/tags/Crypto/)
 
-[中文README](https://github.com/WWILLV/Crypto/blob/master/README.md)
+[中文README](https://github.com/WWILLV/Crypto/blob/master/README-zh.md)
 
 ## Supported encoding and encryption
 - 32/16-bit MD5(DecryptEncrypt)
