@@ -10,7 +10,7 @@ namespace Crypto
     /// <summary>
     /// 编解码类
     /// </summary>
-    static public class Code
+    public class Code
     {
         #region Base64/32
 

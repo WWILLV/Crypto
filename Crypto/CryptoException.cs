@@ -9,7 +9,7 @@ namespace Crypto
     /// <summary>
     /// 异常类
     /// </summary>
-    class CryptoException:Exception
+    public class CryptoException:Exception
     {
         CryptoException() { }
     }

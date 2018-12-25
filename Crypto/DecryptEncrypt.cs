@@ -10,8 +10,30 @@ namespace Crypto
     /// <summary>
     /// 加解密类
     /// </summary>
-    static public class DecryptEncrypt
+    public class DecryptEncrypt
     {
+        /// <summary>
+        /// 生成随机盐值
+        /// </summary>
+        /// <param name="n">盐的长度</param>
+        /// <param name="_chars">自定义随机的类型（默认数字和大小写字母）</param>
+        /// <returns>盐值</returns>
+        static public string randomSalt(int n,
+            string _chars= "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
+        {
+            return CryptoString.randomString(n, _chars);
+        }
+
+        /// <summary>
+        /// 加盐
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <param name="salt">盐值</param>
+        /// <returns>加盐后字符串</returns>
+        static public string salt(string str, string salt)
+        {
+            return str + salt;
+        }
 
         /// <summary>
         /// MD5加密
@@ -38,7 +60,7 @@ namespace Crypto
         }
 
         /// <summary>
-        /// 异或加解密(慎用,加密后密文基本无法显示，建议用Base加密一次)
+        /// 异或加解密
         /// </summary>
         /// <param name="str">明文或密文</param>
         /// <param name="key">密钥</param>
@@ -172,7 +194,7 @@ namespace Crypto
             {
                 key += key;
             }
-            for (int i = 0,k=0; i < str.Length; i++,k++)
+            for (int i = 0, k = 0; i < str.Length; i++, k++)
             {
                 if (str[i] == ' ')  //跳过空格
                 {
@@ -226,144 +248,13 @@ namespace Crypto
                     int set = 0;
                     for (int j = 0; j < 25; j++)
                     {
-                        if (vigenereTable[key[k] - 'A', j] ==str[i])
+                        if (vigenereTable[key[k] - 'A', j] == str[i])
                             set = j;
                     }
-                    result += vigenereTable[0,set];
+                    result += vigenereTable[0, set];
                 }
             }
             return result;
-        }
-
-        #endregion
-
-        #region AES-128
-
-        /// <summary>
-        /// 随机生成密钥向量
-        /// </summary>
-        /// <param name="n">位数</param>
-        /// <returns></returns>
-        public static string getIv(int n)
-        {
-            char[] arrChar = new char[]{
-           'a','b','d','c','e','f','g','h','i','j','k','l','m','n','p','r','q','s','t','u','v','w','z','y','x',
-           '0','1','2','3','4','5','6','7','8','9',
-           'A','B','C','D','E','F','G','H','I','J','K','L','M','N','Q','P','R','T','S','V','U','W','X','Y','Z'
-          };
-
-            StringBuilder num = new StringBuilder();
-
-            Random rnd = new Random(DateTime.Now.Millisecond);
-            for (int i = 0; i < n; i++)
-            {
-                num.Append(arrChar[rnd.Next(0, arrChar.Length)].ToString());
-            }
-
-            return num.ToString();
-        }
-
-        /// <summary>
-        /// 128位AES加密（CBC模式PKCS7填充）
-        /// </summary>
-        /// <param name="encryptStr">明文</param>
-        /// <param name="key">密码</param>
-        /// <param name="iv">密钥向量</param>
-        /// <returns></returns>
-        public static string AESEncrypt_CBC(string encryptStr, string key, string iv)
-        {
-            int size = 128;
-            int bytesNum = size / 8;
-            RijndaelManaged rijndaelCipher = new RijndaelManaged();
-            rijndaelCipher.Mode = CipherMode.CBC;
-            rijndaelCipher.Padding = PaddingMode.PKCS7;
-            rijndaelCipher.KeySize = size;
-            rijndaelCipher.BlockSize = 128;
-
-            byte[] pwdBytes = System.Text.Encoding.UTF8.GetBytes(key);
-            byte[] keyBytes = new byte[bytesNum];
-            int len = pwdBytes.Length;
-            if (len > keyBytes.Length) len = keyBytes.Length;
-            System.Array.Copy(pwdBytes, keyBytes, len);
-            rijndaelCipher.Key = keyBytes;
-            byte[] ivBytes = System.Text.Encoding.UTF8.GetBytes(iv);
-            rijndaelCipher.IV = ivBytes;
-            ICryptoTransform transform = rijndaelCipher.CreateEncryptor();
-            byte[] plainText = Encoding.UTF8.GetBytes(encryptStr);
-            byte[] cipherBytes = transform.TransformFinalBlock(plainText, 0, plainText.Length);
-            return Convert.ToBase64String(cipherBytes);
-        }
-
-        /// <summary>
-        /// 128位AES解密（CBC模式PKCS7填充）
-        /// </summary>
-        /// <param name="decryptStr">密文</param>
-        /// <param name="key">密码</param>
-        /// <param name="iv">密钥向量</param>
-        /// <returns></returns>
-        public static string AESDecrypt_CBC(string decryptStr, string key, string iv)
-        {
-            int size = 128;
-            int bytesNum = size / 8;
-            RijndaelManaged rijndaelCipher = new RijndaelManaged();
-            rijndaelCipher.Mode = CipherMode.CBC;   //CBC加密模式
-            rijndaelCipher.Padding = PaddingMode.PKCS7; //PKCS7填充
-            rijndaelCipher.KeySize = size;
-            rijndaelCipher.BlockSize = 128;
-
-            byte[] encryptedData = Convert.FromBase64String(decryptStr);
-            byte[] pwdBytes = System.Text.Encoding.UTF8.GetBytes(key);
-            byte[] keyBytes = new byte[bytesNum];
-            int len = pwdBytes.Length;
-            if (len > keyBytes.Length) len = keyBytes.Length;
-            System.Array.Copy(pwdBytes, keyBytes, len);
-            rijndaelCipher.Key = keyBytes;
-            byte[] ivBytes = System.Text.Encoding.UTF8.GetBytes(iv);
-            rijndaelCipher.IV = ivBytes;
-            ICryptoTransform transform = rijndaelCipher.CreateDecryptor();
-            byte[] plainText = transform.TransformFinalBlock(encryptedData, 0, encryptedData.Length);
-            return Encoding.UTF8.GetString(plainText);
-        }
-
-        /// <summary>  
-        /// 128位AES加密(ECB)
-        /// </summary>  
-        /// <param name="encryptStr">明文</param>  
-        /// <param name="key">密钥</param>  
-        /// <returns></returns>  
-        public static string AESEncrypt_ECB(string encryptStr, string key)
-        {
-            if (key.Length != 16) throw new Exception("密钥位数错误");
-            byte[] keyArray = UTF8Encoding.UTF8.GetBytes(key);
-            byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(encryptStr);
-            RijndaelManaged rDel = new RijndaelManaged();
-            rDel.Key = keyArray;
-            rDel.Mode = CipherMode.ECB;
-            rDel.Padding = PaddingMode.PKCS7;
-            ICryptoTransform cTransform = rDel.CreateEncryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
-        }
-
-
-        /// <summary>
-        /// 128位AES解密(ECB)
-        /// </summary>
-        /// <param name="decryptStr">密文</param>
-        /// <param name="key">密钥</param>
-        /// <returns></returns>
-        public static string AESDecrypt_ECB(string decryptStr, string key)
-        {
-            if (key.Length != 16) throw new Exception("密钥位数错误");
-            byte[] keyArray = UTF8Encoding.UTF8.GetBytes(key);
-            byte[] toEncryptArray = Convert.FromBase64String(decryptStr);
-            RijndaelManaged rDel = new RijndaelManaged();
-            rDel.Key = keyArray;
-            rDel.Mode = CipherMode.ECB;
-            rDel.Padding = PaddingMode.PKCS7;
-            ICryptoTransform cTransform = rDel.CreateDecryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-            return UTF8Encoding.UTF8.GetString(resultArray);
         }
 
         #endregion
@@ -571,5 +462,173 @@ namespace Crypto
 
         #endregion
 
+        #region AES-128
+
+        /// <summary>
+        /// 随机生成密钥向量
+        /// </summary>
+        /// <param name="n">位数</param>
+        /// <returns></returns>
+        public static string getIv(int n)
+        {
+            char[] arrChar = new char[]{
+           'a','b','d','c','e','f','g','h','i','j','k','l','m','n','p','r','q','s','t','u','v','w','z','y','x',
+           '0','1','2','3','4','5','6','7','8','9',
+           'A','B','C','D','E','F','G','H','I','J','K','L','M','N','Q','P','R','T','S','V','U','W','X','Y','Z'
+          };
+
+            StringBuilder num = new StringBuilder();
+
+            Random rnd = new Random(DateTime.Now.Millisecond);
+            for (int i = 0; i < n; i++)
+            {
+                num.Append(arrChar[rnd.Next(0, arrChar.Length)].ToString());
+            }
+
+            return num.ToString();
+        }
+
+        /// <summary>
+        /// 128位AES加密（CBC模式PKCS7填充）
+        /// </summary>
+        /// <param name="encryptStr">明文</param>
+        /// <param name="key">密码</param>
+        /// <param name="iv">密钥向量</param>
+        /// <returns></returns>
+        public static string AESEncrypt_CBC(string encryptStr, string key, string iv)
+        {
+            int size = 128;
+            int bytesNum = size / 8;
+            RijndaelManaged rijndaelCipher = new RijndaelManaged();
+            rijndaelCipher.Mode = CipherMode.CBC;
+            rijndaelCipher.Padding = PaddingMode.PKCS7;
+            rijndaelCipher.KeySize = size;
+            rijndaelCipher.BlockSize = 128;
+
+            byte[] pwdBytes = System.Text.Encoding.UTF8.GetBytes(key);
+            byte[] keyBytes = new byte[bytesNum];
+            int len = pwdBytes.Length;
+            if (len > keyBytes.Length) len = keyBytes.Length;
+            System.Array.Copy(pwdBytes, keyBytes, len);
+            rijndaelCipher.Key = keyBytes;
+            byte[] ivBytes = System.Text.Encoding.UTF8.GetBytes(iv);
+            rijndaelCipher.IV = ivBytes;
+            ICryptoTransform transform = rijndaelCipher.CreateEncryptor();
+            byte[] plainText = Encoding.UTF8.GetBytes(encryptStr);
+            byte[] cipherBytes = transform.TransformFinalBlock(plainText, 0, plainText.Length);
+            return Convert.ToBase64String(cipherBytes);
+        }
+
+        /// <summary>
+        /// 128位AES解密（CBC模式PKCS7填充）
+        /// </summary>
+        /// <param name="decryptStr">密文</param>
+        /// <param name="key">密码</param>
+        /// <param name="iv">密钥向量</param>
+        /// <returns></returns>
+        public static string AESDecrypt_CBC(string decryptStr, string key, string iv)
+        {
+            int size = 128;
+            int bytesNum = size / 8;
+            RijndaelManaged rijndaelCipher = new RijndaelManaged();
+            rijndaelCipher.Mode = CipherMode.CBC;   //CBC加密模式
+            rijndaelCipher.Padding = PaddingMode.PKCS7; //PKCS7填充
+            rijndaelCipher.KeySize = size;
+            rijndaelCipher.BlockSize = 128;
+
+            byte[] encryptedData = Convert.FromBase64String(decryptStr);
+            byte[] pwdBytes = System.Text.Encoding.UTF8.GetBytes(key);
+            byte[] keyBytes = new byte[bytesNum];
+            int len = pwdBytes.Length;
+            if (len > keyBytes.Length) len = keyBytes.Length;
+            System.Array.Copy(pwdBytes, keyBytes, len);
+            rijndaelCipher.Key = keyBytes;
+            byte[] ivBytes = System.Text.Encoding.UTF8.GetBytes(iv);
+            rijndaelCipher.IV = ivBytes;
+            ICryptoTransform transform = rijndaelCipher.CreateDecryptor();
+            byte[] plainText = transform.TransformFinalBlock(encryptedData, 0, encryptedData.Length);
+            return Encoding.UTF8.GetString(plainText);
+        }
+
+        /// <summary>  
+        /// 128位AES加密(ECB)
+        /// </summary>  
+        /// <param name="encryptStr">明文</param>  
+        /// <param name="key">密钥</param>  
+        /// <returns></returns>  
+        public static string AESEncrypt_ECB(string encryptStr, string key)
+        {
+            if (key.Length != 16) throw new Exception("密钥位数错误");
+            byte[] keyArray = UTF8Encoding.UTF8.GetBytes(key);
+            byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(encryptStr);
+            RijndaelManaged rDel = new RijndaelManaged();
+            rDel.Key = keyArray;
+            rDel.Mode = CipherMode.ECB;
+            rDel.Padding = PaddingMode.PKCS7;
+            ICryptoTransform cTransform = rDel.CreateEncryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+        }
+
+
+        /// <summary>
+        /// 128位AES解密(ECB)
+        /// </summary>
+        /// <param name="decryptStr">密文</param>
+        /// <param name="key">密钥</param>
+        /// <returns></returns>
+        public static string AESDecrypt_ECB(string decryptStr, string key)
+        {
+            if (key.Length != 16) throw new Exception("密钥位数错误");
+            byte[] keyArray = UTF8Encoding.UTF8.GetBytes(key);
+            byte[] toEncryptArray = Convert.FromBase64String(decryptStr);
+            RijndaelManaged rDel = new RijndaelManaged();
+            rDel.Key = keyArray;
+            rDel.Mode = CipherMode.ECB;
+            rDel.Padding = PaddingMode.PKCS7;
+            ICryptoTransform cTransform = rDel.CreateDecryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+            return UTF8Encoding.UTF8.GetString(resultArray);
+        }
+
+        #endregion
+
+        #region Sha
+        /// <summary>
+        /// Sha1加密
+        /// </summary>
+        /// <param name="str">要加密的字符串</param>
+        /// <returns></returns>
+        static public string sha1(string str)
+        {
+            byte[] bytes = CryptoString.stringToBytes(str);
+            System.Security.Cryptography.SHA1 sha1 = new SHA1CryptoServiceProvider();
+            byte[] retval = sha1.ComputeHash(bytes);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < retval.Length; i++)
+            {
+                sb.Append(retval[i].ToString("x2"));
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Sha256加密
+        /// </summary>
+        /// <param name="str">要加密的字符串</param>
+        /// <returns></returns>
+        static public string sha256(string str)
+        {
+            byte[] bytes = CryptoString.stringToBytes(str);
+            System.Security.Cryptography.SHA256 sha256 = new SHA256CryptoServiceProvider();
+            byte[] retval = sha256.ComputeHash(bytes);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < retval.Length; i++)
+            {
+                sb.Append(retval[i].ToString("x2"));
+            }
+            return sb.ToString();
+        }
+        #endregion
     }
 }
