@@ -49,6 +49,7 @@
     <Compile Include="CryptoException.cs" />
     <Compile Include="CryptoFile.cs" />
     <Compile Include="CryptoString.cs" />
+    <Compile Include="CryptoZip.cs" />
     <Compile Include="DecryptEncrypt.cs" />
     <Compile Include="CryptoFileInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

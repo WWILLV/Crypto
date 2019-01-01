@@ -47,6 +47,9 @@
 - 正则匹配返回结果数组
 - 常用字符串、正则表达式
 
+### CryptoZip
+- 压缩文件伪加密
+
 
 ## Todo
 - RSA
@@ -62,7 +65,6 @@
 - jsfuck https://github.com/aemkei/jsfuck (https://github.com/dNetGuru/JSUNFuck)
 - aaencode
 - Base16
-- 压缩文件伪加密（包括正常的加解密（可能需要其他类库））
 - 腾讯TEA算法[根据腾讯公开的JS文件分析QQTEA算法](http://blog.csdn.net/gsls200808/article/details/70837455)
 - wordpress用户密码加密[wordpress用户密码加密原理及其算法分析](https://blog.csdn.net/HK_JH/article/details/27368279)
 - php序列化和反序列化
