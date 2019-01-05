@@ -31,14 +31,14 @@ namespace Crypto
             /// </summary>
             static public string numAlpha = num + lowAlpha + upAlpha;
         }
-        
+
         /// <summary>
         /// 随机生成字符串
         /// </summary>
         /// <param name="n">字符串长度</param>
         /// <param name="_chars">字符串内容，默认所有数字和大小写字母</param>
         /// <returns></returns>
-        static public string randomString(int n, 
+        static public string randomString(int n,
             string _chars = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
         {
             Random r = new Random();
@@ -60,6 +60,19 @@ namespace Crypto
             char[] arr = str.ToCharArray();
             Array.Reverse(arr);
             return new string(arr);
+        }
+
+        /// <summary>
+        /// 10进制数字字符串转对应int值
+        /// </summary>
+        /// <param name="str">10进制数字字符串</param>
+        /// <returns>int</returns>
+        static public int stringToInt(string str)
+        {
+            int a = 0, length = str.Length;
+            for (int i = 0; i < length; i++)
+                a += (int)((str[i] - '0') * System.Math.Pow(10, length - i - 1));
+            return a;
         }
 
         #region 字符串，字节数组，流操作
@@ -102,7 +115,7 @@ namespace Crypto
         {
             return new System.IO.MemoryStream(bytes);
         }
-        
+
         /// <summary>
         /// 流到字符串
         /// </summary>
@@ -125,7 +138,7 @@ namespace Crypto
         #endregion
 
         #region 正则表达式
-        
+
         /// <summary>
         /// 常用正则表达式
         /// </summary>
@@ -195,10 +208,10 @@ namespace Crypto
         /// <param name="str">要匹配的字符串</param>
         /// <param name="regexStr">正则表达式</param>
         /// <returns></returns>
-        static public bool isMarch(string str,string regexStr)
+        static public bool isMarch(string str, string regexStr)
         {
             return Regex.IsMatch(str, regexStr);
-        } 
+        }
 
         /// <summary>
         /// 正则匹配
@@ -206,7 +219,7 @@ namespace Crypto
         /// <param name="str">要匹配的字符串</param>
         /// <param name="regexStr">正则表达式</param>
         /// <returns>匹配到的字符串数组</returns>
-        static public string[] match(string str,string regexStr)
+        static public string[] match(string str, string regexStr)
         {
             List<string> list = new List<string> { };
             Match ma = Regex.Match(str, regexStr);

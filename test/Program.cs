@@ -159,6 +159,7 @@ namespace test
         //}
         static void Main(string[] args)
         {
+            Code.ASCIIToString("68656C6C6F20776F6C7264");
             Console.ReadKey();
         }
     }

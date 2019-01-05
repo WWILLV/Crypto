@@ -24,6 +24,7 @@ In my blog, I've written about the introduction and analysis of various types of
 - Morse(Only supports alphanumeric now)(Code)
 - url
 - ASCII,Unicode and string convert to each other
+- Hexadecimal ASCII string to string
 
 ### Conversion
 - Arbitrary conversion(Supports up to 62 binary conversions,does not support decimals now)(Conversion)
@@ -43,6 +44,7 @@ In my blog, I've written about the introduction and analysis of various types of
 ### CryptoString
 - Generate a random string
 - Reverse string
+- Decimal digit string convert to the int value
 - String, byte array and  stream convert to each other
 - Regular match returns an array of results
 - Commonly used strings, regular expressions

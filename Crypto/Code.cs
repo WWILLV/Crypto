@@ -284,7 +284,7 @@ namespace Crypto
         /// <param name="str">要编码的内容</param>
         /// <param name="code">返回编码类型（1、Unicode 2、UTF-8 3、GB2312）</param>
         /// <returns>URL编码</returns>
-        static public string UrlEncode(string str,int code)
+        static public string UrlEncode(string str, int code)
         {
             if (code == 1)
                 return System.Web.HttpUtility.UrlEncode(str, System.Text.Encoding.Unicode);
@@ -295,7 +295,7 @@ namespace Crypto
             else
                 return "";
         }
-        
+
         /// <summary>
         /// URL解码 
         /// </summary>
@@ -312,7 +312,7 @@ namespace Crypto
         /// <param name="str">URL编码</param>
         /// <param name="code">返回编码类型（1、Unicode 2、UTF-8 3、GB2312）</param>
         /// <returns>解码的内容</returns>
-        static public string UrlDecode(string str,int code)
+        static public string UrlDecode(string str, int code)
         {
             if (code == 1)
                 return System.Web.HttpUtility.UrlDecode(str, System.Text.Encoding.Unicode);
@@ -327,7 +327,7 @@ namespace Crypto
         #endregion
 
         #region ASCII String Unicode
-        
+
         /// <summary>  
         /// 字符串转为UniCode码字符串  
         /// </summary>  
@@ -387,6 +387,24 @@ namespace Crypto
         public static string ASCIIToString(byte[] buf)
         {
             return System.Text.Encoding.ASCII.GetString(buf);
+        }
+
+        /// <summary>
+        /// 16进制ASCII串转字符串
+        /// </summary>
+        /// <param name="hex">16进制ASCII串(每个ASCII必须占2位,不需要0x)</param>
+        /// <returns>字符串</returns>
+        public static string ASCIIToString(string hex)
+        {
+            int len = hex.Length;
+            if (len % 2 != 0) throw new Exception("字符串长度错误");
+            string str = "";
+            for (int i = 0; i < len; i++)
+                str += ASCIIToString(new byte[] {   //按byte转ASCII
+                    (byte)CryptoString.stringToInt( //将10进制string数字字符串转对应int
+                        Conversion.convert( //16进制转10进制
+                            new string(new char[] { hex[i], hex[++i] }), 16, 10)) });
+            return str;
         }
 
         #endregion
