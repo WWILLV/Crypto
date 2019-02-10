@@ -19,7 +19,7 @@ namespace Crypto
         /// <param name="_chars">自定义随机的类型（默认数字和大小写字母）</param>
         /// <returns>盐值</returns>
         static public string randomSalt(int n,
-            string _chars= "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
+            string _chars = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
         {
             return CryptoString.randomString(n, _chars);
         }

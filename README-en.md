@@ -20,14 +20,14 @@ In my blog, I've written about the introduction and analysis of various types of
 - Sha1、Sha256
 
 ### code
-- Base64/32
-- Morse(Only supports alphanumeric now)(Code)
+- Base64/32/16
+- Morse(Only supports alphanumeric now)
 - url
 - ASCII,Unicode and string convert to each other
 - Hexadecimal ASCII string to string
 
 ### Conversion
-- Arbitrary conversion(Supports up to 62 binary conversions,does not support decimals now)(Conversion)
+- Arbitrary conversion(Supports up to 62 binary conversions,support array,does not support decimals now)
 
 ### CryptoFileInfo
 - Get file md5
@@ -66,7 +66,6 @@ In my blog, I've written about the introduction and analysis of various types of
 - brainfuck
 - jsfuck https://github.com/aemkei/jsfuck (https://github.com/dNetGuru/JSUNFuck)
 - aaencode
-- Base16(Code)
 - Tencent TEA algorithm[根据腾讯公开的JS文件分析QQTEA算法](http://blog.csdn.net/gsls200808/article/details/70837455)
 - wordpress user's password encryption[wordpress用户密码加密原理及其算法分析](https://blog.csdn.net/HK_JH/article/details/27368279)
 - php serialization and deserialization

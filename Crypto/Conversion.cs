@@ -23,7 +23,7 @@ namespace Crypto
         /// <param name="dec">要转换的值</param>
         /// <param name="digit">>转换的进制数</param>
         /// <returns></returns>
-        static private string decToAny(string dec,int digit)
+        static private string decToAny(string dec, int digit)
         {
             string result = "";
             if (digit == 10)
@@ -34,12 +34,12 @@ namespace Crypto
                 return "";
             int value = Convert.ToInt32(dec);
             Stack<int> yu = new Stack<int> { };
-            while (value>0)
+            while (value > 0)
             {
                 yu.Push(value % digit);
                 value = value / digit;
             }
-            while (yu.Count()>0)
+            while (yu.Count() > 0)
             {
                 result += wordArray[yu.Pop()];
             }
@@ -52,7 +52,7 @@ namespace Crypto
         /// <param name="any">要转换的值</param>
         /// <param name="digit">转换的进制数</param>
         /// <returns></returns>
-        static private string anyToDec(string any,int digit)
+        static private string anyToDec(string any, int digit)
         {
             string result = "";
             if (digit == 10)
@@ -64,13 +64,13 @@ namespace Crypto
             if (digit < 37) //小于37位的进制转换强制将输入的字母转为大写
                 any = any.ToUpper();
             int dec = 0;
-            for (int i = any.Length-1,k=0; i >= 0; i--,k++) //i为从后到前的游标，k为幂指数
+            for (int i = any.Length - 1, k = 0; i >= 0; i--, k++) //i为从后到前的游标，k为幂指数
             {
                 for (int j = 0; j < wordArray.Length; j++)  //j为进制表中数的位置，即相对应的值对应的10进制的值
                 {
-                    if(wordArray[j]==any[i])
+                    if (wordArray[j] == any[i])
                     {
-                        dec = dec + j*(int)System.Math.Pow(digit, k);
+                        dec = dec + j * (int)System.Math.Pow(digit, k);
                         break;
                     }
                 }
@@ -86,7 +86,7 @@ namespace Crypto
         /// <param name="convertIn">现在的进制</param>
         /// <param name="convertOut">要转换的进制</param>
         /// <returns></returns>
-        static public string convert(string str,int convertIn,int convertOut)
+        static public string convert(string str, int convertIn, int convertOut)
         {
             if (convertIn == 10)
                 return decToAny(str, convertOut);
@@ -94,6 +94,28 @@ namespace Crypto
                 return anyToDec(str, convertIn);
             else
                 return decToAny(anyToDec(str, convertIn), convertOut);
+        }
+
+        /// <summary>
+        /// 字符串数组任意进制转换
+        /// </summary>
+        /// <param name="strs">要转换的字符串数组</param>
+        /// <param name="convertIn">现在的进制</param>
+        /// <param name="convertOut">要转换的进制</param>
+        /// <returns></returns>
+        static public string[] convert(string[] strs, int convertIn, int convertOut)
+        {
+            for (int i = 0; i < strs.Length; i++)
+            {
+                string str = strs[i];
+                if (convertIn == 10)
+                    strs[i] = decToAny(str, convertOut);
+                else if (convertOut == 10)
+                    strs[i] = anyToDec(str, convertIn);
+                else
+                    strs[i] = decToAny(anyToDec(str, convertIn), convertOut);
+            }
+            return strs;
         }
 
     }

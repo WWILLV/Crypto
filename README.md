@@ -20,14 +20,14 @@
 - Sha1、Sha256
 
 ### Code
-- Base64/32加解密
+- Base64/32/16编解码
 - 摩斯加解密（暂时只支持字母和数字）
 - url
 - ASCII及Unicode和字符串的3者互转
 - 16进制ASCII串转字符串
 
 ### Conversion
-- 任意进制转换(最高支持62进制转换，暂不支持小数)
+- 任意进制转换(最高支持62进制转换，支持数组，暂不支持小数)
 
 ### CryptoFileInfo
 - 获取文件md5
@@ -66,7 +66,6 @@
 - brainfuck
 - jsfuck https://github.com/aemkei/jsfuck (https://github.com/dNetGuru/JSUNFuck)
 - aaencode
-- Base16
 - 腾讯TEA算法[根据腾讯公开的JS文件分析QQTEA算法](http://blog.csdn.net/gsls200808/article/details/70837455)
 - wordpress用户密码加密[wordpress用户密码加密原理及其算法分析](https://blog.csdn.net/HK_JH/article/details/27368279)
 - php序列化和反序列化

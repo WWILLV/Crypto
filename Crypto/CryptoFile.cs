@@ -14,7 +14,7 @@ namespace Crypto
         /// </summary>
         /// <param name="oriFile">要翻转的文件</param>
         /// <param name="newFile">翻转的文件</param>
-        static public void fileReverse(string oriFile,string newFile)
+        static public void fileReverse(string oriFile, string newFile)
         {
             byte[] array = fileToArray(oriFile);
             Array.Reverse(array);
@@ -51,7 +51,7 @@ namespace Crypto
         /// <param name="path">文件路径</param>
         /// <param name="array">字节数组</param>
         /// <param name="fm">文件打开方法</param>
-        static public void arrayToFile(string path,byte[] array,FileMode fm)
+        static public void arrayToFile(string path, byte[] array, FileMode fm)
         {
             FileStream fileStream = File.Open(path, fm);//初始化文件流
             fileStream.Write(array, 0, array.Length);//将字节数组写入文件流
@@ -64,7 +64,7 @@ namespace Crypto
         /// <param name="path">文件路径</param>
         /// <param name="str">字符串</param>
         /// <param name="fm">文件打开方法</param>
-        static public void stringToFile(string path,string str,FileMode fm)
+        static public void stringToFile(string path, string str, FileMode fm)
         {
             arrayToFile(path, Encoding.Default.GetBytes(str), fm);
         }

@@ -159,7 +159,9 @@ namespace test
         //}
         static void Main(string[] args)
         {
-            Code.ASCIIToString("68656C6C6F20776F6C7264");
+            //Console.WriteLine(Code.ASCIIToString("0x68656C6C6F20776F6C7264"));
+            Console.WriteLine(Code.Base16Decode("77696C6C76"));
+            Console.WriteLine(Code.Base16Encode("willv"));
             Console.ReadKey();
         }
     }

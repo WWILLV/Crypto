@@ -12,12 +12,12 @@ namespace Crypto
     /// </summary>
     public class Code
     {
-        #region Base64/32
+        #region Base64/32/16
 
         /// <summary>
-        /// base64解密
+        /// base64解码
         /// </summary>
-        /// <param name="text">要解密的密文</param>
+        /// <param name="text">要解码的字符串</param>
         /// <returns>原文</returns>
         static public string Base64Decode(string str)  //base64->string
         {
@@ -32,10 +32,10 @@ namespace Crypto
         }
 
         /// <summary>
-        /// base64加密
+        /// base64编码
         /// </summary>
-        /// <param name="str">要加密的原文</param>
-        /// <returns>Base64密文</returns>
+        /// <param name="str">要编码的原文</param>
+        /// <returns>Base64字符串</returns>
         static public string Base64Encode(string str)  //string->base64
         {
             try
@@ -51,10 +51,10 @@ namespace Crypto
         }
 
         /// <summary>
-        /// base32加密
+        /// base32编码
         /// </summary>
-        /// <param name="str">要加密的原文</param>
-        /// <returns>Base32密文</returns>
+        /// <param name="str">要编码的原文</param>
+        /// <returns>Base32字符串</returns>
         public static string Base32Encode(string str)
         {
             var bin = "";
@@ -99,9 +99,9 @@ namespace Crypto
         }
 
         /// <summary>
-        /// base32解密
+        /// base32解码
         /// </summary>
-        /// <param name="str">要解密的密文</param>
+        /// <param name="str">要解码的字符串</param>
         /// <returns>原文</returns>
         public static string Base32Decode(string str)
         {
@@ -147,6 +147,34 @@ namespace Crypto
             }
 
             return str;
+        }
+
+        //Base16就是转ASCII吧==
+
+        /// <summary>
+        /// base16编码
+        /// </summary>
+        /// <param name="str">要编码的原文</param>
+        /// <returns>Base16字符串</returns>
+        public static string Base16Encode(string str)
+        {
+            byte[] bytes = StringToASCII(str);
+            string b16 = "";
+            foreach (var by in bytes)
+            {
+                b16 += Conversion.convert(by.ToString(), 10, 16);
+            }
+            return b16;
+        }
+
+        /// <summary>
+        /// base16解码
+        /// </summary>
+        /// <param name="str">要解码的字符串</param>
+        /// <returns>原文</returns>
+        public static string Base16Decode(string str)
+        {
+            return ASCIIToString(str);
         }
 
         #endregion
@@ -396,6 +424,8 @@ namespace Crypto
         /// <returns>字符串</returns>
         public static string ASCIIToString(string hex)
         {
+            if (hex.StartsWith("0x") || hex.StartsWith("0X"))
+                hex = hex.Remove(0, 2);
             int len = hex.Length;
             if (len % 2 != 0) throw new Exception("字符串长度错误");
             string str = "";
