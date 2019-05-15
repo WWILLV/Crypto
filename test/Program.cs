@@ -159,7 +159,7 @@ namespace test
         //}
         static void Main(string[] args)
         {
-            Console.WriteLine(DecryptEncrypt.CRC32("willv.cn"));
+            Console.WriteLine(Conversion.convert("a1ADE12EBBfgA3F1a9AC",62,10));
             Console.ReadKey();
         }
     }

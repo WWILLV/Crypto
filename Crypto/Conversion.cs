@@ -32,12 +32,13 @@ namespace Crypto
             }
             else if (digit < 2)
                 return "";
-            int value = Convert.ToInt32(dec);
-            Stack<int> yu = new Stack<int> { };
+            ulong udigit = Convert.ToUInt64(digit);
+            ulong value = Convert.ToUInt64(dec);
+            Stack<ulong> yu = new Stack<ulong> { };
             while (value > 0)
             {
-                yu.Push(value % digit);
-                value = value / digit;
+                yu.Push(value % udigit);
+                value = value / udigit;
             }
             while (yu.Count() > 0)
             {
@@ -63,14 +64,14 @@ namespace Crypto
                 return "";
             if (digit < 37) //小于37位的进制转换强制将输入的字母转为大写
                 any = any.ToUpper();
-            int dec = 0;
+            ulong dec = 0;
             for (int i = any.Length - 1, k = 0; i >= 0; i--, k++) //i为从后到前的游标，k为幂指数
             {
-                for (int j = 0; j < wordArray.Length; j++)  //j为进制表中数的位置，即相对应的值对应的10进制的值
+                for (uint j = 0; j < wordArray.Length; j++)  //j为进制表中数的位置，即相对应的值对应的10进制的值
                 {
                     if (wordArray[j] == any[i])
                     {
-                        dec = dec + j * (int)System.Math.Pow(digit, k);
+                        dec = dec + j * (ulong)System.Math.Pow(digit, k);
                         break;
                     }
                 }
@@ -88,6 +89,8 @@ namespace Crypto
         /// <returns></returns>
         static public string convert(string str, int convertIn, int convertOut)
         {
+            if (convertIn <= 0 || convertOut <= 0)
+                throw (new Exception("进制错误"));
             if (convertIn == 10)
                 return decToAny(str, convertOut);
             else if (convertOut == 10)

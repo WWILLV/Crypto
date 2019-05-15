@@ -30,7 +30,7 @@ In my blog, I've written about the introduction and analysis of various types of
 - Original code to Inverse code and Complement code
 
 ### Conversion
-- Arbitrary conversion(Supports up to 62 binary conversions,support array,does not support decimals now)
+- Arbitrary conversion(Supports up to 62 binary conversions,support array,does not support decimals and negative number now)
 - Arbitrary four-order operation (based on int decimal, so its value can not be more than int range in decimal operation)
 
 ### CryptoFileInfo
