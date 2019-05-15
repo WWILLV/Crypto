@@ -18,6 +18,7 @@ In my blog, I've written about the introduction and analysis of various types of
 - Virginia password
 - AES(128-bit ECB、CBC)
 - Sha1、Sha256
+- CRC32
 
 ### code
 - Base64/32/16
@@ -62,7 +63,6 @@ In my blog, I've written about the introduction and analysis of various types of
 
 ## Todo
 - RSA
-- CRC32
 - Manchester code
 - Differential Manchester code
 - Blowfish

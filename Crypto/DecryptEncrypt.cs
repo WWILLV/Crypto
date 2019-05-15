@@ -630,5 +630,42 @@ namespace Crypto
             return sb.ToString();
         }
         #endregion
+
+        #region CRC32
+        /// <summary>
+        /// CRC32
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <returns>字符串的CRC值</returns>
+        public static string CRC32(string str)
+        {
+            //生成CRC32码表
+            ulong[] Crc32Table;
+            ulong Crc;
+            Crc32Table = new ulong[256];
+            for (int i = 0; i < 256; i++)
+            {
+                Crc = (ulong)i;
+                for (int j = 8; j > 0; j--)
+                {
+                    if ((Crc & 1) == 1)
+                        Crc = (Crc >> 1) ^ 0xEDB88320;
+                    else
+                        Crc >>= 1;
+                }
+                Crc32Table[i] = Crc;
+            }
+
+            //获取字符串的CRC32校验值
+            byte[] buffer = System.Text.ASCIIEncoding.ASCII.GetBytes(str);
+            ulong value = 0xffffffff;
+            int len = buffer.Length;
+            for (int i = 0; i < len; i++)
+            {
+                value = (value >> 8) ^ Crc32Table[(value & 0xFF) ^ buffer[i]];
+            }
+            return (value ^ 0xffffffff).ToString("X2");
+        }
+        #endregion
     }
 }

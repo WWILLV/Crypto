@@ -18,6 +18,7 @@
 - 维吉尼亚密码
 - AES（128位ECB、CBC）
 - Sha1、Sha256
+- CRC32
 
 ### Code
 - Base64/32/16编解码
@@ -62,7 +63,6 @@
 
 ## Todo
 - RSA
-- CRC32
 - 曼彻斯特编码
 - 差分曼彻斯特编码
 - Blowfish

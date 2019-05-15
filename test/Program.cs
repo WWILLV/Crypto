@@ -159,8 +159,7 @@ namespace test
         //}
         static void Main(string[] args)
         {
-            string a = "[+!+[]]+[!+[]+!+[]]+[!+[]+!+[]+!+[]]";
-            Console.WriteLine(JSFUCK.fuck(a));
+            Console.WriteLine(DecryptEncrypt.CRC32("willv.cn"));
             Console.ReadKey();
         }
     }
