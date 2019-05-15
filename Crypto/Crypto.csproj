@@ -52,6 +52,7 @@
     <Compile Include="CryptoZip.cs" />
     <Compile Include="DecryptEncrypt.cs" />
     <Compile Include="CryptoFileInfo.cs" />
+    <Compile Include="JSFUCK.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -159,8 +159,8 @@ namespace test
         //}
         static void Main(string[] args)
         {
-            Console.WriteLine(Code.complement("101010011"));
-            //Console.WriteLine(Conversion.add(2, "10101", "11"));
+            string a = "[+!+[]]+[!+[]+!+[]]+[!+[]+!+[]+!+[]]";
+            Console.WriteLine(JSFUCK.fuck(a));
             Console.ReadKey();
         }
     }

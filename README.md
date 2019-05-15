@@ -56,6 +56,9 @@
 ### CryptoZip
 - 压缩文件伪加密
 
+### JSFUCK
+- jsfuck解码
+
 
 ## Todo
 - RSA
@@ -67,7 +70,6 @@
 - DES
 - rc4
 - brainfuck
-- jsfuck https://github.com/aemkei/jsfuck (https://github.com/dNetGuru/JSUNFuck)
 - aaencode
 - 腾讯TEA算法[根据腾讯公开的JS文件分析QQTEA算法](http://blog.csdn.net/gsls200808/article/details/70837455)
 - wordpress用户密码加密[wordpress用户密码加密原理及其算法分析](https://blog.csdn.net/HK_JH/article/details/27368279)
