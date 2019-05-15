@@ -118,5 +118,62 @@ namespace Crypto
             return strs;
         }
 
+        #region 多进制四则运算（长度有限，其转为十进制必须在int范围内）
+        /// <summary>
+        /// 多进制加法
+        /// </summary>
+        /// <param name="format">格式</param>
+        /// <param name="str1">第一个数</param>
+        /// <param name="str2">第二个数</param>
+        /// <returns>和</returns>
+        static public string add(int format,string str1,string str2)
+        {
+            int num1 = CryptoString.stringToInt(anyToDec(str1, format));
+            int num2 = CryptoString.stringToInt(anyToDec(str2, format));
+            return decToAny((num1 + num2).ToString(), format);
+        }
+
+        /// <summary>
+        /// 多进制减法
+        /// </summary>
+        /// <param name="format">格式</param>
+        /// <param name="str1">第一个数</param>
+        /// <param name="str2">第二个数</param>
+        /// <returns>差</returns>
+        static public string subtract(int format, string str1, string str2)
+        {
+            int num1 = CryptoString.stringToInt(anyToDec(str1, format));
+            int num2 = CryptoString.stringToInt(anyToDec(str2, format));
+            return decToAny((num1 - num2).ToString(), format);
+        }
+
+        /// <summary>
+        /// 多进制乘法
+        /// </summary>
+        /// <param name="format">格式</param>
+        /// <param name="str1">第一个数</param>
+        /// <param name="str2">第二个数</param>
+        /// <returns>积</returns>
+        static public string multiplication(int format, string str1, string str2)
+        {
+            int num1 = CryptoString.stringToInt(anyToDec(str1, format));
+            int num2 = CryptoString.stringToInt(anyToDec(str2, format));
+            return decToAny((num1 * num2).ToString(), format);
+        }
+
+        /// <summary>
+        /// 多进制除法
+        /// </summary>
+        /// <param name="format">格式</param>
+        /// <param name="str1">第一个数</param>
+        /// <param name="str2">第二个数</param>
+        /// <returns>商</returns>
+        static public string division(int format, string str1, string str2)
+        {
+            int num1 = CryptoString.stringToInt(anyToDec(str1, format));
+            int num2 = CryptoString.stringToInt(anyToDec(str2, format));
+            return decToAny((num1 / num2).ToString(), format);
+        }
+        #endregion
     }
 }

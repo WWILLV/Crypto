@@ -230,6 +230,23 @@ namespace Crypto
             return list.ToArray();
         }
 
+        /// <summary>
+        /// 正则替换
+        /// </summary>
+        /// <param name="str">要处理的字符串</param>
+        /// <param name="replaceStr">替换字符</param>
+        /// <param name="regexStr">正则表达式</param>
+        /// <returns></returns>
+        static public string regReplace(string str, string replaceStr, string regexStr)
+        {
+            if (Regex.IsMatch(str, regexStr))
+            {
+                return Regex.Replace(str, regexStr, replaceStr);
+            }
+            else
+                return str;
+        }
+
         #endregion
     }
 }

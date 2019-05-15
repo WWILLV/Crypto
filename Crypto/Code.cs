@@ -398,6 +398,22 @@ namespace Crypto
         }
 
         /// <summary>
+        /// 字符串转&#十进制格式的Unicode编码(如：&#120&#115&#115)
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <returns>&#十进制格式的Unicode编码</returns>
+        public static string StringToHTMLUnicode(string str)
+        {
+            string unicode = StringToUnicode(str);
+            string ux10 = "";
+            for (int i = 2; i < unicode.Length; i = i + 6)
+            {
+                ux10 += "\\u" + Conversion.convert(unicode.Substring(i, 4), 16, 10);
+            }
+            return CryptoString.regReplace(ux10, "&#", @"\\u0*");
+        }
+
+        /// <summary>
         /// 字符串转ASCII
         /// </summary>
         /// <param name="str">字符串</param>
@@ -435,6 +451,66 @@ namespace Crypto
                         Conversion.convert( //16进制转10进制
                             new string(new char[] { hex[i], hex[++i] }), 16, 10)) });
             return str;
+        }
+
+        #endregion
+
+        #region Inverse Complement
+
+        /// <summary>
+        /// 检查是否为二进制数据
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        private static bool checkbin(string code)
+        {
+            foreach (char c in code)
+            {
+                if (c != '0' || c != '1')
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 原码转反码
+        /// </summary>
+        /// <param name="original">原码</param>
+        /// <returns>反码</returns>
+        public static string inverse(string original)
+        {
+            if (checkbin(original))
+            {
+                throw (new Exception("原码错误"));
+            }
+            string inverseCode = "";
+            foreach (char c in original)
+            {
+                if (c == '0')
+                    inverseCode += '1';
+                else
+                    inverseCode += '0';
+            }
+            return inverseCode;
+        }
+
+        /// <summary>
+        /// 原码转补码
+        /// </summary>
+        /// <param name="original">原码</param>
+        /// <returns>补码</returns>
+        public static string complement(string original)
+        {
+            string inverseCode = inverse(original);
+            string complementCode = Conversion.add(2, inverseCode, "1");
+            if (inverseCode.Length > complementCode.Length && inverseCode.StartsWith("0"))
+            {
+                while (inverseCode.Length > complementCode.Length)
+                {
+                    complementCode = "0" + complementCode;
+                }
+            }
+            return complementCode;
         }
 
         #endregion

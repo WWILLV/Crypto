@@ -24,10 +24,13 @@ In my blog, I've written about the introduction and analysis of various types of
 - Morse(Only supports alphanumeric now)
 - url
 - ASCII,Unicode and string convert to each other
+- String to Unicode encoding in decimal format(xss->&#120&#115&#115)
 - Hexadecimal ASCII string to string
+- Original code to Inverse code and Complement code
 
 ### Conversion
 - Arbitrary conversion(Supports up to 62 binary conversions,support array,does not support decimals now)
+- Arbitrary four-order operation (based on int decimal, so its value can not be more than int range in decimal operation)
 
 ### CryptoFileInfo
 - Get file md5
@@ -47,6 +50,7 @@ In my blog, I've written about the introduction and analysis of various types of
 - Decimal digit string convert to the int value
 - String, byte array and  stream convert to each other
 - Regular match returns an array of results
+- Regular match and replace
 - Commonly used strings, regular expressions
 
 ### CryptoZip
@@ -58,7 +62,6 @@ In my blog, I've written about the introduction and analysis of various types of
 - CRC32
 - Manchester code
 - Differential Manchester code
-- Complement code,Inverse code
 - Blowfish
 - Elliptic Curve Cryptography(ECC)
 - DES
